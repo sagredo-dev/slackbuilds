@@ -1,10 +1,12 @@
 PRGNAM="86box"
-VERSION="5.1"
+VERSION="5.3"
 HOMEPAGE="https://86box.net/"
-DOWNLOAD="https://github.com/86Box/86Box/archive/v5.1/86Box-5.1.tar.gz \
-          https://github.com/86Box/roms/archive/v5.1/roms-5.1.tar.gz"
-MD5SUM="5d4fb081702fc508e30f494800b7ab47 \
-        385c196d23c72a388653366d560f0fcc"
+DOWNLOAD="https://github.com/86Box/86Box/archive/v5.3/86Box-5.3.tar.gz \
+          https://github.com/86Box/roms/archive/v5.3/roms-5.3.tar.gz \
+          https://github.com/86Box/assets/archive/v5.3/assets-5.3.tar.gz"
+MD5SUM="0efeaebe46cf2fe5538a8648c13186db \
+        44c559d3e16b07a8ae3e42c96d039965 \
+        12f0913edecd88a581549a6db9720965"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
 REQUIRES="libslirp"

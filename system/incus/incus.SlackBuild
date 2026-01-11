@@ -25,19 +25,19 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=incus
-VERSION=${VERSION:-6.17}
-BUILD=${BUILD:-2}
+VERSION=${VERSION:-6.20}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
 
-INCUS_UI=${PRGNAM}-ui-canonical_${VERSION}-ubuntu24.04-202510170211_amd64.deb
-
-if [ -z "$ARCH" ]; then
-  case "$( uname -m )" in
-    i?86) ARCH=i586 ;;
-    arm*) ARCH=arm ;;
-       *) ARCH=$( uname -m ) ;;
-  esac
+ARCH=${ARCH:-$(uname -m)}
+if [ "$ARCH" = "x86_64" ]; then
+  OVMF_ARCH="x64"
+elif [ "$ARCH" = "i686" ]; then
+  OVMF_ARCH="ia32"
+else
+  echo "Unsupported architecture. Exiting now ...."
+  exit
 fi
 
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
@@ -67,7 +67,7 @@ find -L . \
 find -L . -type f|xargs sed -i -e "s:ubuntu/22.04:slackware/15.0:"
 
 # Ensure google-go-lang is used
-[ -z "$GOROOT" ] && . /etc/profile.d/go.sh
+. /etc/profile.d/go.sh
 
 # Build
 export GOFLAGS="-buildmode=pie -modcacherw"
@@ -113,12 +113,6 @@ cp -a \
   $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
-# Add web ui
-cd $PKG
-ar p $CWD/$INCUS_UI data.tar.zst |tar xv --zst
-cp -a usr/share/doc/incus-ui-canonical $PKG/usr/doc/$PRGNAM-$VERSION/ 
-rm -rf $PKG/usr/share/doc
-
 INCUSD_GROUP=${INCUSD_GROUP:-wheel}
 mkdir -p $PKG/etc/default
 cat >$PKG/etc/default/incus.new <<EOF
@@ -132,13 +126,13 @@ cat <<EOF > $PKG/etc/profile.d/incus.sh
 # The  edk2-ovmf package is required for incus
 # so this path should exist
 
-export INCUS_EDK2_PATH=/usr/share/edk2-ovmf-x64
+export INCUS_EDK2_PATH=/usr/share/edk2-ovmf-$OVMF_ARCH
 EOF
 cat <<EOF > $PKG/etc/profile.d/incus.csh
 # The  edk2-ovmf package is required for incus
 # so this path should exist
 
-setenv INCUS_EDK2_PATH /usr/share/edk2-ovmf-x64
+setenv INCUS_EDK2_PATH /usr/share/edk2-ovmf-$OVMF_ARCH
 EOF
 chmod a+x $PKG/etc/profile.d/incus.*
 
