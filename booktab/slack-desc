@@ -6,14 +6,14 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
        |-----handy-ruler------------------------------------------------------|
-Booktab: Booktab (ebook reader)
-Booktab:
-Booktab: Booktab e' la piattaforma che ti permette di consultare tutti i tuoi
-Booktab: libri scolastici in versione multimediale e interattiva, direttamente
-Booktab: su tablet o su computer.
-Booktab:
-Booktab: homepage: https://booktab.it
-Booktab:
-Booktab:
-Booktab:
-Booktab:
+booktab: booktab (ebook reader)
+booktab:
+booktab: Booktab is a platform by Zanichelli that allows to consult all your
+booktab: schoolbooks in a multimedia and interactive format, directly on your
+booktab: tablet or computer.
+booktab:
+booktab: homepage: https://booktab.it
+booktab:
+booktab:
+booktab:
+booktab:
